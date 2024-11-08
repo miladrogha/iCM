@@ -76,7 +76,7 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
       labels.map((d, i) =>
         annot
           .append("text")
-          .attr("x", d3.min([gx / 2, 15]))
+          .attr("x", d3.min([gx / 2, 10]))
           .attr("y", ((2 * i + 1) * h) / 4 + gy / 2) // Position below the quadrants
           .attr("text-anchor", "start")
           .attr("font-size", 14)
@@ -89,14 +89,14 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
       legend
         .append("circle")
         .attr("cx", gx)
-        .attr("cy", h + 80)
+        .attr("cy", h + 90)
         .attr("r", 7)
         .attr("fill", "indianred");
 
       legend
         .append("text")
         .attr("x", gx + 15)
-        .attr("y", h + 85)
+        .attr("y", h + 95)
         .attr("text-anchor", "start")
         .attr("font-size", 14)
         .text("Match (Pred = Actual)");
@@ -104,14 +104,14 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
       legend
         .append("circle")
         .attr("cx", cw / 2 + gx / 2)
-        .attr("cy", h + 80)
+        .attr("cy", h + 90)
         .attr("r", 7)
         .attr("fill", "steelblue");
 
       legend
         .append("text")
         .attr("x", cw / 2 + gx / 2 + 15)
-        .attr("y", h + 85)
+        .attr("y", h + 95)
         .attr("text-anchor", "start")
         .attr("font-size", 14)
         .text("Mismatch (Pred ≠ Actual)");
@@ -172,7 +172,8 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
         .attr("height", (d) => d.height)
         .attr("fill", "none")
         .attr("stroke", "gray")
-        .attr("stroke-width", 0.5);
+        .attr("stroke-width", 0.5)
+        .on("mouseEnter", () => {});
 
       const dataPoints = svgContainer.append("g").attr("name", "dataPoints");
       const tooltip = d3.select("#tooltip");
@@ -194,12 +195,12 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
             .attr("fill", "orange")
             .attr("fill-opacity", 0.7);
           tooltip
-            .style("opacity", 0.75)
-            .style("borderRadius", 10)
+            .style("opacity", 0.8)
+            .style("text-align", "left")
             .html(
-              `Text: ${d.text.slice(2, -3)}<br>Label: ${
+              `<b>Text: </b> ${d.text.slice(2, -3)}<br><b>Label: </b> ${
                 d.label
-              }<br>Prediction: ${d.pred}`
+              }<br><b>Prediction: </b> ${d.pred}`
             )
             .style("left", `${event.pageX + 15}px`)
             .style("top", `${event.pageY + 15}px`);

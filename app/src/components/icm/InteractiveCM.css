@@ -9,9 +9,10 @@
   white-space: normal; /* Allow text to wrap to a new line */
   overflow-wrap: break-word; /* Break words if they are too long */
   word-break: break-word; /* Ensure long words are broken to fit */
-  background: rgba(230, 230, 230, 0.8);
+  background: rgba(230, 230, 230, 0.1);
   padding: 5px;
   border-radius: 4px;
   position: absolute;
+  text-align: "left";
   opacity: 0; /* Hidden by default */
 }
