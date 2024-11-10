@@ -4,6 +4,10 @@
   color: "steelblue";
 }
 
+.cmContainer h3 {
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
 #tooltip {
   max-width: 250px; /* Set the maximum width for the tooltip */
   white-space: normal; /* Allow text to wrap to a new line */
