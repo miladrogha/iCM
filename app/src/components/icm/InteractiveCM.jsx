@@ -67,9 +67,9 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
     // Groups
     const annot = svgContainer.append("g").attr("name", "annot"); // Annotation group for "Actual" and "Prediction" labels
     const legend = svgContainer.append("g").attr("name", "legend"); // Legend at the bottom
-    const quarters = svgContainer.append("g").attr("name", "quarters"); // quarters
+    const quadrants = svgContainer.append("g").attr("name", "quadrants"); // quadrants
     const dataPoints = svgContainer.append("g").attr("name", "dataPoints"); // Datapoints
-
+    const hoverInfo = svgContainer.append("g").attr("name", "infoContainer"); // Info container when hover on quadrants
     if (!loadingData && csvData.length > 0 && results) {
       // "Actual" label, rotated and positioned on the left side
       annot
@@ -223,14 +223,14 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
           }
         } else {
           if (d_label === "DLB") {
-            return "fp";
-          } else {
             return "fn";
+          } else {
+            return "fp";
           }
         }
       }
 
-      quarters
+      quadrants
         .selectAll("rect")
         .data(rectData)
         .enter()
@@ -257,7 +257,7 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
         .attr("cy", (h + gy) / 2)
         .attr("fill", (d) => (d.pred === d.label ? "indianred" : "steelblue"))
         .attr("fill-opacity", 0.0)
-        .attr("type", (d) => getDataType(d.label, d.pred))
+        .attr("dtype", (d) => getDataType(d.label, d.pred))
         .on("mouseover", function (event, d) {
           // Enlarge the hovered data point and change its color
           d3.select(this)
@@ -280,11 +280,10 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
           // Determine fill color based on whether prediction matches label
           const isMatch = d.pred === d.label;
           const fillColor = isMatch ? "indianred" : "steelblue";
-
-          // Highlight the corresponding rectangle in 'quarters' based on 'type' of the data point
-          quarters
+          // Highlight the corresponding rectangle in 'quadrants' based on 'type' of the data point
+          quadrants
             .selectAll("rect")
-            .filter((rect) => rect.name === d.type) // Select rectangle where `name` matches `type` of data point
+            .filter((rect) => rect.name === d3.select(this).attr("dtype")) // Select rectangle where `name` matches `type` of data point
             .attr("stroke-width", 2)
             .attr("fill", fillColor); // Apply the determined fill color
         })
@@ -301,10 +300,10 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
             )
             .attr("fill-opacity", 0.4);
           tooltip.style("opacity", 0);
-
-          quarters
+          //clear fill
+          quadrants
             .selectAll("rect")
-            .filter((rect) => rect.name === d.type)
+            .filter((rect) => rect.name === d3.select(this).attr("dtype"))
             .attr("fill", "none")
             .attr("stroke-width", 0.5);
         })
@@ -316,39 +315,50 @@ export default function InteractiveCM({ w, h, cw, ch, labels }) {
         .attr("cy", (d) => getCoord(d).y)
         .attr("fill-opacity", 0.4); // Color from CSV or default to white;
 
-      function getCoordByName(key) {
-        let xPos, yPos, text;
-        switch (key) {
-          case "tp":
-            xPos = w / 4 + gx / 2;
-            yPos = h / 4 + gy / 2;
-            text = "True Positive";
-            break;
-          case "tn":
-            xPos = (3 * w) / 4 + gx / 2;
-            yPos = (3 * h) / 4 + gy / 2;
-            text = "True Negative";
+      // hoverInfo
+      //   .selectAll("rect")
+      //   .data(rectData)
+      //   .enter()
+      //   .append("rect")
+      //   .attr("x", (d) => d.x)
+      //   .attr("y", (d) => d.y)
+      //   .attr("width", (d) => d.width)
+      //   .attr("height", (d) => d.height)
+      //   .attr("name", (d) => d.name)
+      //   .attr("fill", "transparent")
+      //   .on("click", function (event, d) {
+      //     d3.select(this).attr("fill", "white");
 
-            break;
-          case "fp":
-            xPos = (3 * w) / 4 + gx / 2;
-            yPos = h / 4 + gy / 2;
-            text = "False Positive";
+      //     // Check if text already exists for this quadrant
+      //     const existingText = hoverInfo.select(`text[name='${d.name}']`);
 
-            break;
-          case "fn":
-            xPos = w / 4 + gx / 2;
-            yPos = (3 * h) / 4 + gy / 2;
-            text = "False Negative";
+      //     if (!existingText.empty()) {
+      //       // If text exists, remove it (toggle off)
+      //       existingText.remove();
+      //     } else {
+      //       // Otherwise, add the text (toggle on)
+      //       hoverInfo.selectAll("text").remove(); // Clear any other existing text
+      //     }
 
-            break;
-          default:
-            xPos = w / 2;
-            yPos = h / 2;
-            text = "";
-        }
-        return { x: xPos, y: yPos, t: text };
-      }
+      //     const isMatch = ["tp", "tn"].includes(d.name);
+      //     const fillColor = isMatch ? "indianred" : "steelblue";
+
+      //     hoverInfo
+      //       .append("text")
+      //       .attr("x", d.x + d.width / 2)
+      //       .attr("y", d.y + d.height / 2)
+      //       .attr("font-size", 48)
+      //       .attr("font-family", "Helvetica")
+      //       .attr("font-weight", "bold")
+      //       .attr("fill", fillColor)
+      //       .attr("text-anchor", "middle")
+      //       .text(`${results[d.name].length}`);
+      //   })
+      //   .on("mouseout", function (event, d) {
+      //     d3.select(this).attr("fill", "transparent");
+
+      //     hoverInfo.selectAll("text").remove();
+      //   });
     } else {
       // "Actual" label, rotated and positioned on the left side
       annot
