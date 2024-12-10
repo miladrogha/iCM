@@ -1,11 +1,10 @@
 .cmContainer {
-  width: auto;
-  margin: 20vh auto;
-  color: "steelblue";
+  padding: 1vmin;
 }
 
 .cmContainer h3 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  color: "steelblue";
 }
 
 #tooltip {

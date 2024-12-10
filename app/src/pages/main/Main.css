@@ -1,0 +1,178 @@
+.main-layout {
+  width: 90vw;
+  margin: auto;
+  display: flex;
+  gap: 1vmin;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  width: 90vw;
+  margin: auto;
+  display: flex;
+  gap: 1vmin;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.formSection,
+.formSectionSubmit {
+  height: 20vh;
+  flex: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2vmin;
+  border: 1px solid gray;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+label {
+  text-align: left;
+  margin-right: auto;
+  font-style: italic;
+  font-size: 0.85em;
+  color: steelblue;
+  font-weight: 500;
+  padding: 1vmin;
+}
+
+input::placeholder {
+  font-size: 8pt;
+  padding-left: 1em;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px steelblue;
+  border: 1px solid steelblue;
+  border-radius: 10px;
+}
+input[type="text"]:focus::placeholder {
+  color: transparent;
+}
+
+input[type="text"]:focus:hover {
+  outline: none;
+  border-radius: 10px;
+}
+
+input[type="text"] {
+  height: calc(1em + 2vmin);
+  width: 100%;
+  outline: none;
+  margin: 1vmin;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding-left: 1em;
+}
+
+input[type="file"] {
+  width: 80%;
+  height: 100%;
+  outline: none;
+  margin: 0 auto;
+  border: 1px solid steelblue;
+  border-radius: 10px;
+  padding: 2vmin;
+}
+
+input[type="file"]::file-selector-button {
+  display: block;
+  background-color: eeeeee;
+  height: 80%;
+  width: 60%;
+  border: 2px solid steelblue;
+  border-radius: 10px;
+  margin-right: 3vmin;
+}
+
+/* input[type="file"]:: {
+} */
+
+input[type="file"]::file-selector-button:hover {
+  cursor: pointer;
+}
+
+button {
+  background-color: steelblue;
+  color: white;
+  width: 100px;
+  height: 100%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 0;
+}
+
+button:disabled {
+  background-color: lightgray;
+  border-color: lightgray;
+}
+
+button:disabled:hover {
+  cursor: not-allowed;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* ------------------ */
+
+.modelInfoContainer {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  gap: 1vmin;
+  align-items: start;
+  justify-content: center;
+}
+
+/* ------------------ */
+
+.dataTable {
+  /* width: auto; */
+  height: 100%;
+  display: flex;
+  flex: 4;
+  margin: auto;
+  font-size: 8pt;
+  overflow: auto;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 1vmin;
+}
+
+.visContainer {
+  display: flex;
+  height: 100%;
+  flex: 4;
+  /* margin: 2vmin auto; */
+  padding: 1vmin;
+  border: 1px solid gray;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.model-metrics {
+  /* width: calc(100% - 2vmin - 3px); */
+  height: 100%;
+  flex: 4;
+  /* margin: 2vmin auto; */
+  padding: 1vmin;
+  border: 1px solid indianred;
+  border-radius: 10px;
+}
+
+.model-metrics h2 {
+  color: indianred;
+  transition: ease-in-out;
+}
